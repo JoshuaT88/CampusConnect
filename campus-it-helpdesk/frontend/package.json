@@ -1,0 +1,25 @@
+{
+  "name": "campus-it-helpdesk-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "lint": "eslint . --ext .ts,.tsx",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-router-dom": "^6.0.0",
+    "react-query": "^3.0.0",
+    "tailwindcss": "^2.0.0"
+  },
+  "devDependencies": {
+    "vite": "^3.0.0",
+    "typescript": "^4.0.0",
+    "eslint": "^7.0.0",
+    "vitest": "^0.0.0"
+  }
+}
