@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import { sequelize } from '../utils/db';
+import sequelize from '../utils/db';
 
 class Department extends Model {
   public DeptID!: number;
@@ -30,7 +30,6 @@ Department.init(
   {
     sequelize,
     modelName: 'Department',
-    tableName: 'Departments',
   }
 );
 

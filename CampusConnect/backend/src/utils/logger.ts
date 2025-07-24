@@ -24,3 +24,5 @@ export const logError = (message: string) => {
 export const logDebug = (message: string) => {
     logger.debug(message);
 };
+
+export default logger;

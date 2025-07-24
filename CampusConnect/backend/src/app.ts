@@ -1,11 +1,11 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import { authRoutes } from './routes/authRoutes';
-import { ticketRoutes } from './routes/ticketRoutes';
-import { departmentRoutes } from './routes/departmentRoutes';
-import { db } from './utils/db';
-import { logger } from './utils/logger';
+import authRoutes from './routes/authRoutes';
+import ticketRoutes from './routes/ticketRoutes';
+import departmentRoutes from './routes/departmentRoutes';
+import db from './utils/db';
+import logger from './utils/logger';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Database connection
 db.connect()
   .then(() => logger.info('Database connected successfully'))
-  .catch(err => logger.error('Database connection failed', err));
+  .catch((err: Error) => logger.error('Database connection failed', err));
 
 // Routes
 app.use('/api/auth', authRoutes);
