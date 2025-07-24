@@ -1,5 +1,5 @@
-import { DataTypes, Model } from 'sequelize';
-import { sequelize } from '../utils/db';
+import { Model } from 'sequelize';
+import sequelize from '../utils/db';
 class Ticket extends Model {
 }
 Ticket.init({

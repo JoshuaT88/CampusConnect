@@ -6,7 +6,6 @@ class Department extends Model {
   public TenantID!: number;
   public DeptName!: string;
 
-  // timestamps
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -30,6 +29,8 @@ Department.init(
   {
     sequelize,
     modelName: 'Department',
+    tableName: 'Departments',
+    timestamps: true,
   }
 );
 

@@ -4,7 +4,7 @@ import cors from 'cors';
 import authRoutes from './routes/authRoutes';
 import ticketRoutes from './routes/ticketRoutes';
 import departmentRoutes from './routes/departmentRoutes';
-import db from './utils/db';
+import { connectDB, sequelize } from './utils/db'; // Corrected import
 import logger from './utils/logger';
 
 const app = express();
@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Database connection
-db.connect()
+connectDB()
   .then(() => logger.info('Database connected successfully'))
   .catch((err: Error) => logger.error('Database connection failed', err));
 
@@ -24,6 +24,18 @@ db.connect()
 app.use('/api/auth', authRoutes);
 app.use('/api/tickets', ticketRoutes);
 app.use('/api/departments', departmentRoutes);
+
+// Sync DB
+const syncDB = async () => {
+  try {
+    await sequelize.sync({ alter: true }); // Sync models with the database
+    logger.info('Database synchronized successfully.');
+  } catch (error) {
+    logger.error('Error synchronizing the database:', error);
+  }
+};
+
+syncDB();
 
 // Start server
 app.listen(PORT, () => {

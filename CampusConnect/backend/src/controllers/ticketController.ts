@@ -1,3 +1,43 @@
+import { DataTypes, Model } from 'sequelize';
+import sequelize from '../utils/db';
+
+class TicketComment extends Model {
+  public CommentID!: number;
+  public TicketID!: number;
+  public UserID!: number;
+  public Body!: string;
+  public readonly createdAt!: Date;
+}
+
+TicketComment.init(
+  {
+    CommentID: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    TicketID: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    UserID: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    Body: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    sequelize,
+    modelName: 'TicketComment',
+    tableName: 'TicketComments',
+    timestamps: true,
+  }
+);
+
+export default TicketComment;
 import { Request, Response } from 'express';
 import Ticket from '../models/Ticket';
 import TicketComment from '../models/TicketComment';

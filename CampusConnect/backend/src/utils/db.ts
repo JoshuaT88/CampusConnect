@@ -1,21 +1,19 @@
 import { Sequelize } from 'sequelize';
-import { User } from '../models/User';
-import { Ticket } from '../models/Ticket';
-import { Department } from '../models/Department';
 
-const sequelize = new Sequelize('database', 'username', 'password', {
+const sequelize = new Sequelize('campus_connect', 'root', 'root', {
   host: 'localhost',
-  dialect: 'mysql', // Change this to your database dialect (e.g., 'postgres', 'sqlite')
-  models: [User, Ticket, Department],
+  dialect: 'mysql',
+  port: 3306,
 });
 
 export const connectDB = async () => {
-    try {
-        await sequelize.authenticate();
-        console.log('Database connection established successfully.');
-    } catch (error) {
-        console.error('Unable to connect to the database:', error);
-    }
+  try {
+    await sequelize.authenticate();
+    console.log('Database connection established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
 };
 
+export { sequelize };
 export default sequelize;

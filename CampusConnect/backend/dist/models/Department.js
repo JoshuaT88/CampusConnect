@@ -1,4 +1,4 @@
-import { DataTypes, Model } from 'sequelize';
+import { Model } from 'sequelize';
 import sequelize from '../utils/db';
 class Department extends Model {
 }
@@ -19,5 +19,7 @@ Department.init({
 }, {
     sequelize,
     modelName: 'Department',
+    tableName: 'Departments',
+    timestamps: true,
 });
 export default Department;

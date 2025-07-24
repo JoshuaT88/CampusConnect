@@ -44,6 +44,22 @@ export const login = async (req: Request, res: Response) => {
     }
 };
 
+export const registerUser = async (email: string, password: string) => {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = await User.create({ Email: email, PwHash: hashedPassword, Role: 'user' });
+    const token = jwt.sign({ userId: newUser.UserID }, JWT_SECRET, { expiresIn: JWT_EXPIRATION });
+    return { token, user: newUser };
+};
+
+export const loginUser = async (email: string, password: string) => {
+    const user = await User.findOne({ where: { Email: email } });
+    if (!user) throw new Error('Invalid credentials');
+    const isMatch = await bcrypt.compare(password, user.PwHash);
+    if (!isMatch) throw new Error('Invalid credentials');
+    const token = jwt.sign({ userId: user.UserID }, JWT_SECRET, { expiresIn: JWT_EXPIRATION });
+    return { token, user };
+};
+
 export const authenticateToken = (req: Request, res: Response, next: Function) => {
     const token = req.headers['authorization']?.split(' ')[1];
     if (!token) return res.sendStatus(401);

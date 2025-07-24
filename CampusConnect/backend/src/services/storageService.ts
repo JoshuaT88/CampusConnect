@@ -20,12 +20,12 @@ const upload = multer({ storage });
 
 export const uploadFile = upload.single('file');
 
-export const getUploadedFiles = (tenant, ticketId) => {
+export const getUploadedFiles = (tenant: string, ticketId: number) => {
   const uploadPath = path.join(__dirname, '../uploads', tenant, ticketId.toString());
   return fs.readdirSync(uploadPath).map(file => ({
     url: `/uploads/${tenant}/${ticketId}/${file}`,
     mime: path.extname(file),
-    uploadedBy: 'system', // Placeholder, should be replaced with actual uploader info
-    createdAt: new Date() // Placeholder, should be replaced with actual upload time
+    uploadedBy: 'system',
+    createdAt: new Date(),
   }));
 };

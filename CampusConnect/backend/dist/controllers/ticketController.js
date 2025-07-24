@@ -1,5 +1,33 @@
+import { Model } from 'sequelize';
+import sequelize from '../utils/db';
+class TicketComment extends Model {
+}
+TicketComment.init({
+    CommentID: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    TicketID: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    UserID: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    Body: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+}, {
+    sequelize,
+    modelName: 'TicketComment',
+    tableName: 'TicketComments',
+    timestamps: true,
+});
+export default TicketComment;
 import Ticket from '../models/Ticket';
-import TicketComment from '../models/TicketComment';
 import { classifyTicket } from '../services/aiService';
 // Create a new ticket
 export const createTicket = async (req, res) => {

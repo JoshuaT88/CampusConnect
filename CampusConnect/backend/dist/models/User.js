@@ -1,36 +1,30 @@
-import { Schema, model } from 'mongoose';
-const userSchema = new Schema({
+import { Model } from 'sequelize';
+import sequelize from '../utils/db';
+class User extends Model {
+}
+User.init({
     UserID: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    TenantID: {
-        type: String,
-        required: true
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
     },
     Email: {
-        type: String,
-        required: true,
-        unique: true
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
     },
     PwHash: {
-        type: String,
-        required: true
+        type: DataTypes.STRING,
+        allowNull: false,
     },
     Role: {
-        type: String,
-        enum: ['admin', 'tech', 'staff', 'faculty'],
-        required: true
+        type: DataTypes.STRING,
+        allowNull: false,
     },
-    CampusID: {
-        type: String,
-        required: true
-    },
-    DeptID: {
-        type: String,
-        required: true
-    }
-}, { timestamps: true });
-const User = model('User', userSchema);
+}, {
+    sequelize,
+    modelName: 'User',
+    tableName: 'Users',
+    timestamps: true,
+});
 export default User;

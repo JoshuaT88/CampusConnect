@@ -21,6 +21,6 @@ export const getUploadedFiles = (tenant, ticketId) => {
         url: `/uploads/${tenant}/${ticketId}/${file}`,
         mime: path.extname(file),
         uploadedBy: 'system',
-        createdAt: new Date() // Placeholder, should be replaced with actual upload time
+        createdAt: new Date(),
     }));
 };

@@ -35,6 +35,22 @@ export const login = async (req, res) => {
         res.status(500).json({ message: 'Error logging in', error });
     }
 };
+export const registerUser = async (email, password) => {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = await User.create({ Email: email, PwHash: hashedPassword, Role: 'user' });
+    const token = jwt.sign({ userId: newUser.UserID }, JWT_SECRET, { expiresIn: JWT_EXPIRATION });
+    return { token, user: newUser };
+};
+export const loginUser = async (email, password) => {
+    const user = await User.findOne({ where: { Email: email } });
+    if (!user)
+        throw new Error('Invalid credentials');
+    const isMatch = await bcrypt.compare(password, user.PwHash);
+    if (!isMatch)
+        throw new Error('Invalid credentials');
+    const token = jwt.sign({ userId: user.UserID }, JWT_SECRET, { expiresIn: JWT_EXPIRATION });
+    return { token, user };
+};
 export const authenticateToken = (req, res, next) => {
     const token = req.headers['authorization']?.split(' ')[1];
     if (!token)
